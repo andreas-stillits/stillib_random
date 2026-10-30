@@ -3,9 +3,9 @@ requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "TOOL"
-version = "0.2.2"
-description = "Some python utility"
+name = "stillib_random"
+version = "0.1.0"
+description = "A python utility for managed random number generators built on NumPy"
 readme = "README.md"
 requires-python = ">=3.12"
 
@@ -17,7 +17,7 @@ authors = [
 ]
 
 dependencies = [
-
+  "numpy>=2,<3",
 ]
 
 [project.optional-dependencies]
