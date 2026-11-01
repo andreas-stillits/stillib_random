@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "stillib_random"
 version = "0.1.0"
-description = "A python utility for managed random number generators built on NumPy"
+description = "A python utility for reproducible random number generators built on NumPy"
 readme = "README.md"
 requires-python = ">=3.12"
 
