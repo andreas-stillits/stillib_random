@@ -138,5 +138,5 @@ with ProcessPoolExecutor(max_workers=2) as pool:
     #pool.map preserves input order but what worker sees what job is not fixed across runs.
 
 assert sequential == parallel
-
 ```
+`create_rng` can take any number of integer keys and that may reflect sub-tasks and sub-sub-tasks, etc. This avoids an arbitrary rule like `job_seed = seed + job_id` that could produce unintentionally identical streams across runs - e.g. using `seed-1` in another run would produce `n_jobs-1` sequences also present in the previous `seed` run. Every seed and spawn-key combination is instead a unique stream identity by virtue of `numpy.random.SeedSequence`.
