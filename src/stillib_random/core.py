@@ -48,6 +48,7 @@ class _Fingerprint(TypedDict):
     raw_sha256: str
     normal_sha256: str
     choice_sha256: str
+    uniform_sha256: str
 
 
 @dataclass(frozen=True)
@@ -84,6 +85,8 @@ def _fingerprint(state: Any) -> _Fingerprint:
         - 8 raw bits from the generator
         - 8 normal-distributed floating point numbers
         - 8 random choices from a range of 10
+        - 8 uniform-distributed floating point numbers
+    This fingerprint is used to verify the integrity of the RNG state across different environments and numpy versions.
     """
 
     probe = _get_probe()
@@ -97,11 +100,15 @@ def _fingerprint(state: Any) -> _Fingerprint:
     probe.state = state
     choice = [int(x) for x in np.random.Generator(probe).choice(10, size=8)]
 
+    probe.state = state
+    uniform = [float(x).hex() for x in np.random.Generator(probe).uniform(size=8)]
+
     return {
         "state_sha256": _digest(state),
         "raw_sha256": _digest(raw),
         "normal_sha256": _digest(normal),
         "choice_sha256": _digest(choice),
+        "uniform_sha256": _digest(uniform),
     }
 
 
